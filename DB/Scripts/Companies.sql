@@ -9,7 +9,7 @@ BEGIN
     ParentCompanyId UNIQUEIDENTIFIER NULL,
     Name VARCHAR(255) NOT NULL,
     Inn VARCHAR(10) NOT NULL,
-    Phone VARCHAR(12) NULL,
+    Phone VARCHAR(30) NULL,
     CONSTRAINT FK_Companies_ParentCompany FOREIGN KEY (ParentCompanyId) REFERENCES Companies(Id)
   );
   PRINT 'Object Companies created.';
