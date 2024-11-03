@@ -4,9 +4,13 @@ using Data.Interfaces;
 using Data.Repositories;
 using Domain.Interfaces;
 using Domain.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 const string _corsPolicy = "EnableAll";
 
@@ -41,6 +45,12 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                         .AllowAnyOrigin();
                     });
+});
+
+builder.Services.AddAuthorization(auth =>
+{
+    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser().Build());
 });
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");

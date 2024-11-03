@@ -1,4 +1,5 @@
-﻿using Api.Exceptions;
+﻿using Api.Attributes;
+using Api.Exceptions;
 using Api.ViewModels;
 using Api.ViewModels.Request;
 using Data;
@@ -46,6 +47,7 @@ namespace Api.Controllers
         /// <returns></returns>
         // POST <CompaniesController>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] RequestViewModel requestViewModel)
         {
             try
