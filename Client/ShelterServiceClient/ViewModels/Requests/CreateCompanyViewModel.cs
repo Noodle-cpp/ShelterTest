@@ -1,21 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Api.ViewModels.Request
+namespace ShelterServiceClient.ViewModels.Requests
 {
     public class CreateCompanyViewModel
     {
         public Guid? ParentCompanyId { get; set; }
 
-        [Required]
-        [MaxLength(255)]
         public string Name { get; set; }
 
-        [Required]
-        [MaxLength(10)]
         public string Inn { get; set; }
 
-        [Required]
-        [MaxLength(30)]
         public string Phone { get; set; }
     }
 }
