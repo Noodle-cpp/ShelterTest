@@ -27,6 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{834D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShelterServiceClient", "Client\ShelterServiceClient\ShelterServiceClient.csproj", "{FA5E6E85-AE95-48DA-B552-4F723AE2DB0D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{34E0AB1C-08DF-4D77-9B28-7627A05DA715}"
+	ProjectSection(SolutionItems) = preProject
+		Shelter Test.postman_collection.json = Shelter Test.postman_collection.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
