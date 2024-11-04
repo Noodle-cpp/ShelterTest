@@ -21,7 +21,7 @@ namespace Api.Attributes
                 if (!String.IsNullOrEmpty(apiKey) && apiKey.First() == key)
                     return;
 
-            context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+            context.Result = new UnauthorizedResult();
         }
     }
 }
