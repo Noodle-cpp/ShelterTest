@@ -4,13 +4,13 @@
 Пользователь: sa
 Пароль: P@ssword
 В конфиге сервера:
-_"DefaultConnection": "Server=192.168.179.183,1433;Database=ShelterTest;User ID=sa;Password=P@ssword;TrustServerCertificate=true;"_
+`"DefaultConnection": "Server=192.168.179.183,1433;Database=ShelterTest;User ID=sa;Password=P@ssword;TrustServerCertificate=true;"`
 
 Схема в БД для скриптов тоже стандартная - dbo
 
 В качестве тела к запросам использую следующий json формат:
 
-_{
+`{
   "operation": string,
   "id": string,
   "body": 
@@ -20,7 +20,7 @@ _{
     "phone": stirng,
     "parentCompanyId": string
   }
-}_
+}`
 
 Для CREATE можно не указывать "_parentCompanyId_" и "_id_"
 Для UPDATE можно не указывать "_parentCompanyId_", тогда он будет принят как _null_
