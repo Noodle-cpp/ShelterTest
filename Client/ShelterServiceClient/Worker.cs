@@ -31,13 +31,16 @@ namespace ShelterServiceClient
             {
                 try
                 {
-                    _logger.LogInformation("Starting to get  the companies list at: {time}", DateTimeOffset.Now);
+                    if (_logger.IsEnabled(LogLevel.Information))
+                        _logger.LogInformation("Starting to get  the companies list at: {time}", DateTimeOffset.Now);
 
                     var companies = await GetCompaniesListAsync().ConfigureAwait(false);
 
                     if (!companies.Any(x => x.Phone.ToLower().Contains(DateTimeOffset.Now.Date.ToString("dd.MM.yyyy"))))
                     {
-                        _logger.LogInformation("Starting to create company at: {time}", DateTimeOffset.Now);
+                        if (_logger.IsEnabled(LogLevel.Information))
+                            _logger.LogInformation("Starting to create company at: {time}", DateTimeOffset.Now);
+
                         await CreateCompanyAsync().ConfigureAwait(false);
                     }
                 }
