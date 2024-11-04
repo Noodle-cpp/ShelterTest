@@ -13,6 +13,7 @@ namespace ShelterServiceClient
         private readonly ILogger<Worker> _logger;
         private readonly IHttpRequests _httpRequests;
         private readonly string shelterApiUrl;
+        private readonly string shelterApiKey;
 
         public Worker(ILogger<Worker> logger,
                       IHttpRequests httpRequests,
@@ -21,6 +22,7 @@ namespace ShelterServiceClient
             _logger = logger;
             _httpRequests = httpRequests;
             shelterApiUrl = options.Value.ShelterApi.ServerUrl;
+            shelterApiKey = options.Value.ShelterApi.Key;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -29,10 +31,15 @@ namespace ShelterServiceClient
             {
                 try
                 {
+                    _logger.LogInformation("Starting to get  the companies list at: {time}", DateTimeOffset.Now);
+
                     var companies = await GetCompaniesListAsync().ConfigureAwait(false);
 
-                    if (!companies.Any(x => x.Phone.ToLower().Contains(DateTimeOffset.Now.Date.ToString("dd.MM.yyyy")))) 
+                    if (!companies.Any(x => x.Phone.ToLower().Contains(DateTimeOffset.Now.Date.ToString("dd.MM.yyyy"))))
+                    {
+                        _logger.LogInformation("Starting to create company at: {time}", DateTimeOffset.Now);
                         await CreateCompanyAsync().ConfigureAwait(false);
+                    }
                 }
                 catch (UserUnauthorizedException)
                 {
@@ -66,6 +73,11 @@ namespace ShelterServiceClient
 
         private async Task<IEnumerable<CompanyViewModel>> GetCompaniesListAsync()
         {
+            Dictionary<string, string> headers = new()
+            {
+                ["Authorization"] = $"{shelterApiKey}"
+            };
+
             var request = new RequestViewModel()
             {
                 Operation = "READ_LIST"
@@ -73,7 +85,7 @@ namespace ShelterServiceClient
 
             string requestBody = JsonConvert.SerializeObject(request);
             HttpContent content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            var response = await _httpRequests.PostAsync($"{shelterApiUrl}/companies", null, content, null).ConfigureAwait(false); //TODO: Добавить токен
+            var response = await _httpRequests.PostAsync($"{shelterApiUrl}/companies", null, content, headers).ConfigureAwait(false);
             string responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<IEnumerable<CompanyViewModel>>(responseBody) ?? throw new UnknownPostException();
@@ -81,6 +93,11 @@ namespace ShelterServiceClient
 
         private async Task CreateCompanyAsync()
         {
+            Dictionary<string, string> headers = new()
+            {
+                ["Authorization"] = $"{shelterApiKey}"
+            };
+
             var request = new RequestViewModel()
             {
                 Operation = "CREATE",
@@ -95,7 +112,7 @@ namespace ShelterServiceClient
 
             string requestBody = JsonConvert.SerializeObject(request);
             HttpContent content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            await _httpRequests.PostAsync($"{shelterApiUrl}/companies", null, content, null).ConfigureAwait(false); //TODO: Добавить токен
+            await _httpRequests.PostAsync($"{shelterApiUrl}/companies", null, content, headers).ConfigureAwait(false);
         }
     }
 }

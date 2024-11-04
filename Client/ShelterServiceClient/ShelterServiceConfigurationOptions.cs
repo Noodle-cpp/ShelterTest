@@ -14,5 +14,6 @@ namespace ShelterServiceClient
     public class ShelterApiConfigurationOptions
     {
         public string ServerUrl { get; set; }
+        public string Key { get; set; }
     }
 }
