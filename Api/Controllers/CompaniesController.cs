@@ -50,6 +50,9 @@ namespace Api.Controllers
         [Authorize]
         public async Task<IActionResult> Post([FromBody] RequestViewModel requestViewModel)
         {
+            if (!ModelState.IsValid)
+                return UnprocessableEntity();
+
             try
             {
                 var handler = requestViewModel.Operation.ToUpper() switch
@@ -94,7 +97,11 @@ namespace Api.Controllers
             if(body is null) throw new RequiredArgumentException(nameof(body));
 
             CreateCompanyViewModel createCompanyViewModel = JsonConvert.DeserializeObject<CreateCompanyViewModel>(body.ToString()) ?? throw new InvalidBodyException(nameof(createCompanyViewModel));
-            
+
+            if (createCompanyViewModel.Name.Length > 255) throw new InvalidBodyException($"{nameof(createCompanyViewModel.Name)} too many symbols max. is 255");
+            if (createCompanyViewModel.Inn.Length > 10) throw new InvalidBodyException($"{nameof(createCompanyViewModel.Inn)} too many symbols max. is 10");
+            if (createCompanyViewModel.Phone.Length > 30) throw new InvalidBodyException($"{nameof(createCompanyViewModel.Phone)} too many symbols max. is 30");
+
             _ = createCompanyViewModel.Name ?? throw new InvalidBodyException(nameof(createCompanyViewModel.Name));
             _ = createCompanyViewModel.Inn ?? throw new InvalidBodyException(nameof(createCompanyViewModel.Inn));
             _ = createCompanyViewModel.Phone ?? throw new InvalidBodyException(nameof(createCompanyViewModel.Phone));
@@ -111,6 +118,10 @@ namespace Api.Controllers
             if(body is null) throw new RequiredArgumentException(nameof(body));
 
             UpdateCompanyViewModel updateCompanyViewModel = JsonConvert.DeserializeObject<UpdateCompanyViewModel>(body.ToString())?? throw new InvalidBodyException(nameof(updateCompanyViewModel));
+
+            if (updateCompanyViewModel.Name.Length > 255) throw new InvalidBodyException($"{nameof(updateCompanyViewModel.Name)} too many symbols max. is 255");
+            if (updateCompanyViewModel.Inn.Length > 10) throw new InvalidBodyException($"{nameof(updateCompanyViewModel.Inn)} too many symbols max. is 10");
+            if (updateCompanyViewModel.Phone.Length > 30) throw new InvalidBodyException($"{nameof(updateCompanyViewModel.Phone)} too many symbols max. is 30");
 
             _ = updateCompanyViewModel.Name ?? throw new InvalidBodyException(nameof(updateCompanyViewModel.Name));
             _ = updateCompanyViewModel.Inn ?? throw new InvalidBodyException(nameof(updateCompanyViewModel.Inn));

@@ -1,10 +1,13 @@
-﻿namespace Api.ViewModels.Request
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Api.ViewModels.Request
 {
     public abstract class BaseRequestViewModel
     {
         /// <summary>
         /// Тип операции
         /// </summary>
+        [Required]
         public string Operation { get; set; }
 
         /// <summary>
