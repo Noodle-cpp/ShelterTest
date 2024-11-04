@@ -4,6 +4,7 @@
 Пользователь: sa
 Пароль: P@ssword
 В конфиге сервера:
+
 `"DefaultConnection": "Server=192.168.179.183,1433;Database=ShelterTest;User ID=sa;Password=P@ssword;TrustServerCertificate=true;"`
 
 Схема в БД для скриптов тоже стандартная - dbo
