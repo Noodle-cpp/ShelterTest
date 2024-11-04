@@ -3,6 +3,7 @@
 Порт: 1433
 Пользователь: sa
 Пароль: P@ssword
+
 В конфиге сервера:
 
 `"DefaultConnection": "Server=192.168.179.183,1433;Database=ShelterTest;User ID=sa;Password=P@ssword;TrustServerCertificate=true;"`
@@ -23,10 +24,10 @@
   }
 }`
 
-Для CREATE можно не указывать "_parentCompanyId_" и "_id_"
-Для UPDATE можно не указывать "_parentCompanyId_", тогда он будет принят как _null_
-Для получения списка хватает только "_operation_": "_READ_LIST_"
-Для получения и удаления конкретной компании необходимо указать _id_
+- Для CREATE можно не указывать "_parentCompanyId_" и "_id_"
+- Для UPDATE можно не указывать "_parentCompanyId_", тогда он будет принят как _null_
+- Для получения списка хватает только "_operation_": "_READ_LIST_"
+- Для получения и удаления конкретной компании необходимо указать _id_
 
 Файл коллекции постман находится в корневой папке решения, скрипты находятся в директории /_DB_/_Scriptss_
 
