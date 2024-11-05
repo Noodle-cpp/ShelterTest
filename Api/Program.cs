@@ -103,13 +103,11 @@ app.Run();
 
 static void ConfigureRepositories(IServiceCollection services)
 {
-    services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped<ICompanyRepository, CompanyRepository>();
 }
 
 static void ConfigureServices(IServiceCollection services)
 {
-    services.AddScoped<IAccountService, AccountService>();
     services.AddScoped<ICompanyService, CompanyService>();
 }
 

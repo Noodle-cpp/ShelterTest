@@ -19,10 +19,10 @@ namespace ShelterServiceClient
                       IHttpRequests httpRequests,
                       IOptions<ShelterServiceConfigurationOptions> options)
         {
-            _logger = logger;
-            _httpRequests = httpRequests;
-            shelterApiUrl = options.Value.ShelterApi.ServerUrl;
-            shelterApiKey = options.Value.ShelterApi.Key;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _httpRequests = httpRequests ?? throw new ArgumentNullException(nameof(httpRequests));
+            shelterApiUrl = options.Value.ShelterApi.ServerUrl ?? throw new ArgumentNullException(nameof(options.Value.ShelterApi.ServerUrl));
+            shelterApiKey = options.Value.ShelterApi.Key ?? throw new ArgumentNullException(nameof(options.Value.ShelterApi.Key));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

@@ -20,7 +20,7 @@ namespace ShelterServiceClient.Utilities
 
         public HttpRequests(IHttpClientFactory httpClient)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
         public async Task<HttpResponseMessage> PostAsync(string url, Dictionary<string, string>? queries, HttpContent? content, Dictionary<string, string>? headers)

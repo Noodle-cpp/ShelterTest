@@ -8,6 +8,7 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -30,8 +31,8 @@ namespace Api.Controllers
         public CompaniesController(ICompanyService companyService,
                                    IApiObjectConverter apiObjectConverter)
         {
-            _companyService = companyService;
-            _apiObjectConverter = apiObjectConverter;
+            _companyService = companyService ?? throw new ArgumentNullException(nameof(companyService));
+            _apiObjectConverter = apiObjectConverter ?? throw new ArgumentNullException(nameof(apiObjectConverter));
         }
 
         /// <summary>
